@@ -1,0 +1,32 @@
+risk:
+  max_daily_drawdown_pct: 0.05  # 5% daily loss triggers full pause.
+  max_single_asset_exposure_pct: 0.20  # Avoid oversized single-asset concentration.
+  max_correlated_exposure_pct: 0.30  # Cap shared downside across correlated majors.
+  max_risk_per_trade_pct: 0.02  # Preserve survival through inevitable losing streaks.
+  max_slippage_pct: 0.003  # Reject poor fills in thin liquidity windows.
+
+regime:
+  classification_interval_seconds: 900  # Regime updates every 15 minutes.
+  ema_period: 200  # Long trend anchor for market structure context.
+  bollinger_period: 20  # Standard volatility lookback for consistency.
+  bollinger_std_dev: 2.0  # Canonical band width used by most desks.
+  volatile_bollinger_width_multiplier: 2.0  # Pause strategies during volatility expansion.
+
+signals:
+  min_confluence_score: 3  # Minimum independent alignment before any execution path.
+  rsi_oversold_threshold: 30  # Oversold mean-reversion threshold.
+  rsi_overbought_threshold: 70  # Overbought caution threshold.
+  rsi_period: 14  # Industry-standard momentum period.
+  funding_rate_extreme_positive: 0.001  # Crowded long warning level.
+  funding_rate_extreme_negative: -0.001  # Crowded short warning level.
+  whale_concentration_max_pct: 0.50  # Skip assets with high concentration risk.
+
+execution:
+  min_volume_24h_usd: 10000000  # Avoid low-liquidity pairs.
+  latency_skip_threshold_ms: 300  # Skip stale opportunities under API delay.
+  candle_timeframe_minimum: "15m"  # Avoid sub-minute overfitting and latency fragility.
+
+sessions:
+  overnight_trough_utc_start: "07:00"  # Reduced quality execution window start.
+  overnight_trough_utc_end: "11:00"  # Reduced quality execution window end.
+  aggressive_strategies_pause_during_trough: true  # Prioritize capital preservation.

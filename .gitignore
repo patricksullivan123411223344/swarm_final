@@ -1,0 +1,5 @@
+# Enviornment variables
+.env
+*.env*
+
+# Data
